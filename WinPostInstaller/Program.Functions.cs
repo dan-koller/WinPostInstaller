@@ -25,11 +25,17 @@ partial class Program
     // Install all software packages
     static void InstallPackages()
     {
+        // Set the execution policy to unrestricted (required for the install script)
+        RunPowerShellCommand("Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser");
+
         // Path for the install script in the output directory
         string path = Path.Combine(Directory.GetCurrentDirectory(), "Resources", "Install-Packages.ps1");
 
         // Run the powershell command to install all packages
         RunPowerShellCommand($"& '{path}'");
+
+        // Set the execution policy back to restricted (recommended)
+        RunPowerShellCommand("Set-ExecutionPolicy -ExecutionPolicy Restricted -Scope CurrentUser");
     }
 
     // Helper method for running powershell commands from C#
@@ -48,5 +54,48 @@ partial class Program
         };
 
         process.Start();
+
+        // Get the exit code of the process
+        process.WaitForExit();
+        int exitCode = process.ExitCode;
+
+        // Check if the exit code is 0 (operation successful)
+        if (exitCode == 0)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"Successfully performed command: {command}");
+            Console.ResetColor();
+        }
+        else
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"Failed to execute command: {command}");
+            Console.WriteLine($"Reason: {process.StandardOutput.ReadToEnd()}");
+            Console.ResetColor();
+        }
+    }
+
+    static void ApplyGitConfig(string name, string email)
+    {
+        // Open the gitconfig file
+        string path = Path.Combine(Directory.GetCurrentDirectory(), "Resources", ".gitconfig");
+        string gitconfig = File.ReadAllText(path);
+
+        // Replace the placeholders with the user's values
+        gitconfig = gitconfig.Replace("{{name}}", name);
+        gitconfig = gitconfig.Replace("{{email}}", email);
+
+        // Write the gitconfig file to the user's home directory
+        string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        File.WriteAllText(Path.Combine(home, ".gitconfig"), gitconfig);
+
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("Successfully applied gitconfig");
+        Console.ResetColor();
+    }
+
+    static void CopyTerminalSettings()
+    {
+        RunPowerShellCommand("Copy-Item -Path .\\Resources\\settings.json -Destination $env:USERPROFILE\\AppData\\Local\\Packages\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\LocalState\\settings.json -Force");
     }
 }
