@@ -1,0 +1,11 @@
+[user]
+	name = {{name}}
+	email = {{email}}
+[core]
+	editor = code
+[pull]
+	ff = only
+[init]
+	defaultBranch = main
+[core]
+	autocrlf = true
