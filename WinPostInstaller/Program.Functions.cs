@@ -98,4 +98,10 @@ partial class Program
     {
         RunPowerShellCommand("Copy-Item -Path .\\Resources\\settings.json -Destination $env:USERPROFILE\\AppData\\Local\\Packages\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\LocalState\\settings.json -Force");
     }
+
+    static void RebootSystem()
+    {
+        // Run the powershell command to reboot the system after 1 minute
+        RunPowerShellCommand("Restart-Computer -Force -Delay 00:01");
+    }
 }

@@ -48,4 +48,8 @@ if (gitname != null && gitmail != null)
 CopyTerminalSettings();
 
 // Finish the installation
-Console.WriteLine("Installation finished! Please reboot the device.\nPress any key to exit...");
+Console.WriteLine("Installation finished! The system will now reboot.\nPress any key to continue...");
+
+// Wait for the user to press any key, then reboot the system
+Console.ReadKey();
+RebootSystem();
