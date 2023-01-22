@@ -2,24 +2,24 @@
 
 WinPostInstaller is a simple tool to install software packages and apply core settings (such as git, terminal, etc.) on Windows 10 or Windows 11. It is built around the [winget](https://github.com/microsoft/winget-cli) command line tool for package management.
 
-## Features
+## ⚡ Features
 
 -   Set the computer's hostname
 -   Apply Git settings
 -   Copy Windows Terminal settings
 -   Install software packages
 
-## Installation
+## 💻 Installation
 
 The app is available as a cli-tool on Windows 10 and Windows 11. To get started, download the latest release from the [releases page](https://github.com/dan-koller/WinPostInstaller/releases/tag/v1.0.0) and extract the zip file.
 
-## Usage
+## 🚀 Usage
 
 Open a new terminal window and navigate to the folder where you extracted the zip file. Then run the following command:
 
 -   Default settings:
     ```powershell
-    .\WinPostInstaller.exe\
+    .\WinPostInstaller.exe
     ```
 
 #### You can also add flags for the hostname and git settings (optional):
