@@ -32,6 +32,11 @@ if (hostname != null)
 Console.WriteLine("Installing winget package manager");
 InstallWinget();
 
+// Inform the user that the installation will now start
+Console.ForegroundColor = ConsoleColor.Yellow;
+Console.WriteLine("During installation, UAC prompts may appear. Please allow them to continue the installation.");
+Console.ResetColor();
+
 // Install packages
 Console.WriteLine("Installing packages");
 InstallPackages();

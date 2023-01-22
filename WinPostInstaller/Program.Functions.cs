@@ -1,11 +1,11 @@
 ﻿using System.Diagnostics;
+using System.Xml.Linq;
 
 partial class Program
 {
     // Set the hostname of the device
     static void SetHostName(string hostName)
     {
-        // Run the powershell command to set the hostname
         RunPowerShellCommand($"Rename-Computer -NewName {hostName}");
     }
 
@@ -25,17 +25,45 @@ partial class Program
     // Install all software packages
     static void InstallPackages()
     {
-        // Set the execution policy to unrestricted (required for the install script)
-        RunPowerShellCommand("Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser");
+        // Read the packages from the packages.xml file
+        string path = Path.Combine(Directory.GetCurrentDirectory(), "Resources", "packages.xml");
 
-        // Path for the install script in the output directory
-        string path = Path.Combine(Directory.GetCurrentDirectory(), "Resources", "Install-Packages.ps1");
+        Dictionary<string, string> packages = LoadXml(path);
+        string acceptLicense = "--accept-source-agreements --accept-package-agreements";
 
-        // Run the powershell command to install all packages
-        RunPowerShellCommand($"& '{path}'");
+        // Install every package via powershell
+        foreach (var package in packages)
+        {
+            Console.WriteLine($"Installing {package.Key}");
+            RunPowerShellCommand($"{package.Value} {acceptLicense}");
+        }
+    }
 
-        // Set the execution policy back to restricted (recommended)
-        RunPowerShellCommand("Set-ExecutionPolicy -ExecutionPolicy Restricted -Scope CurrentUser");
+    // Helper method to load an XML file
+    private static Dictionary<string, string> LoadXml(string path)
+    {
+        // Create a dictionary to store the packages
+        Dictionary<string, string> packages = new Dictionary<string, string>();
+
+        foreach (var package in XDocument.Load(path).Descendants("package"))
+        {
+            // Check if the package has a name and command
+            if (package.Attribute("name") == null || package.Attribute("command") == null)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Invalid package entry in packages.xml");
+                Console.ResetColor();
+                continue;
+            }
+
+            string name = package.Attribute("name").Value;
+            string url = package.Attribute("command").Value;
+
+            // Add the package to the dictionary
+            packages.Add(name, url);
+        }
+
+        return packages;
     }
 
     // Helper method for running powershell commands from C#
