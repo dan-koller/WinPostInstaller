@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<packages>
+    <package name="Google Chrome" command="winget install -e --id Google.Chrome" />
+    <package name="Google Drive" command="winget install -e --id Google.Drive" />
+    <package name="Smartmontools" command="winget install -e --id smartmontools.smartmontools" />
+    <package name="7-Zip" command="winget install -e --id 7zip.7zip" />
+    <package name="Jetbrains IntelliJ IDEA Community" command="winget install -e --id JetBrains.IntelliJIDEA.Community" />
+    <package name="Jetbrains PyCharm Community" command="winget install -e --id JetBrains.PyCharm.Community" />
+    <package name="Microsoft Visual Studio 2022 Community" command="winget install -e --id Microsoft.VisualStudio.2022.Community" />
+    <package name="Microsoft Visual Studio Code" command="winget install -e --id Microsoft.VisualStudioCode" />
+    <package name="Node.JS LTS" command="winget install -e --id OpenJS.NodeJS.LTS" />
+    <package name="Postman" command="winget install -e --id Postman.Postman" />
+    <package name="Python 3" command="winget install -e --id Python" />
+    <package name="Git" command="winget install -e --id Git.Git" />
+    <package name="GitHub CLI" command="winget install -e --id GitHub.cli" />
+</packages>
