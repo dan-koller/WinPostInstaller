@@ -33,12 +33,12 @@ Open a new terminal window and navigate to the folder where you extracted the zi
 -   Only set the git settings:
 
     ```powershell
-    .\WinPostInstaller.exe --git-name "John Doe" --git-email "johndoe@<domain>.com"
+    .\WinPostInstaller.exe --gitname "John Doe" --gitmail "johndoe@<domain>.com"
     ```
 
 -   Set the hostname and git settings:
     ```powershell
-    .\WinPostInstaller.exe --hostname MyComputer --git-name "John Doe" --git-email "johndoe@<domain>.com"
+    .\WinPostInstaller.exe --hostname MyComputer --gitname "John Doe" --gitmail "johndoe@<domain>.com"
     ```
 
 ---
