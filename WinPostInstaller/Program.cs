@@ -1,9 +1,7 @@
-﻿// Default values for the arguments
-string? hostname = null;
+﻿string? hostname = null;
 string? gitname = null;
 string? gitmail = null;
 
-// Print the command line arguments
 for (int i = 0; i < args.Length; i++)
 {
     switch (args[i])
@@ -28,7 +26,7 @@ if (hostname != null)
     SetHostName(hostname);
 }
 
-// Install package manager (winget)
+// Install winget package manager
 Console.WriteLine("Installing winget package manager");
 InstallWinget();
 
@@ -41,7 +39,7 @@ Console.ResetColor();
 Console.WriteLine("Installing packages");
 InstallPackages();
 
-// Configure git if the user has specified the parameters
+// Configure git settings if the user has specified the parameters
 if (gitname != null && gitmail != null)
 {
     // Copy the gitconfig and apply settings

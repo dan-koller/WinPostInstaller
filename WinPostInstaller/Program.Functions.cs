@@ -3,13 +3,11 @@ using System.Xml.Linq;
 
 partial class Program
 {
-    // Set the hostname of the device
     static void SetHostName(string hostName)
     {
         RunPowerShellCommand($"Rename-Computer -NewName {hostName}");
     }
 
-    // Install winget
     static void InstallWinget()
     {
         // Run the first command to download the package
@@ -22,7 +20,6 @@ partial class Program
         RunPowerShellCommand("Remove-Item .\\MicrosoftDesktopAppInstaller_8wekyb3d8bbwe.msixbundle");
     }
 
-    // Install all software packages
     static void InstallPackages()
     {
         // Read the packages from the packages.xml file
@@ -39,7 +36,11 @@ partial class Program
         }
     }
 
-    // Helper method to load an XML file
+    /// <summary>
+    /// Helper method to load an Xml file from a given path and return the content as dictionary.
+    /// </summary>
+    /// <param name="path">File path of the Xml.</param>
+    /// <returns>Xml content as string dictionary</returns>
     private static Dictionary<string, string> LoadXml(string path)
     {
         // Create a dictionary to store the packages
@@ -66,7 +67,10 @@ partial class Program
         return packages;
     }
 
-    // Helper method for running powershell commands from C#
+    /// <summary>
+    /// Helper method to execute raw strings as powershell commands.
+    /// </summary>
+    /// <param name="command">The command as raw string.</param>
     private static void RunPowerShellCommand(string command)
     {
         var process = new Process
