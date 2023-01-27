@@ -1,6 +1,6 @@
-﻿string? hostname = null;
-string? gitname = null;
-string? gitmail = null;
+﻿string hostname = "";
+string gitname = "";
+string gitmail = "";
 
 for (int i = 0; i < args.Length; i++)
 {
@@ -19,7 +19,7 @@ for (int i = 0; i < args.Length; i++)
 }
 
 // Set the hostname if the user specified it
-if (hostname != null)
+if (!"".Equals(hostname))
 {
     Console.WriteLine($"Setting hostname to {hostname}");
     hostname = hostname.Trim();
@@ -40,7 +40,7 @@ Console.WriteLine("Installing packages");
 InstallPackages();
 
 // Configure git settings if the user has specified the parameters
-if (gitname != null && gitmail != null)
+if (!"".Equals(gitname) && !"".Equals(gitmail))
 {
     // Copy the gitconfig and apply settings
     Console.WriteLine($"Applying gitconfig for user {gitname}, {gitmail}");
